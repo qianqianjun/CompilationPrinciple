@@ -1,5 +1,5 @@
-package main;
-import java.lang.reflect.Array;
+package DFA;
+
 import java.util.*;
 class Line{
     public String tranval;
@@ -19,11 +19,50 @@ class stackNode{
     public Node left=null;
     public Node right=null;
 }
+class DFAStatus{
+    public static Integer amount=0;
+    public Integer symble;
+    public TreeSet<Integer> closure;
+    public DFAStatus(TreeSet<Integer> tree)
+    {
+        this.closure=tree;
+    }
+    //如果是一个没有的全新的状态，那么就创造一个新的状态标号。
+    public void initSymble()
+    {
+        this.symble=amount++;
+    }
+    //如果这个状态已经有了，那么就直接将状态标号赋给这个状态
+    public void setSymble(Integer sym)
+    {
+        this.symble=sym;
+    }
+    //判断两个状态是否相同。
+    public Boolean isEqual(DFAStatus temp)
+    {
+        TreeSet<Integer> t1=this.closure;
+        TreeSet<Integer> t2=temp.closure;
+        if(t1.size()!=t2.size())
+            return false;
+        Iterator it1=t1.iterator();
+        Iterator it2=t2.iterator();
+        while(it1.hasNext())
+        {
+            String temp1=it1.next().toString();
+            String temp2=it2.next().toString();
+            if(!temp1.equals(temp2))
+                return false;
+        }
+        return true;
+    }
+}
 public class RE {
-    public static Integer maxsize=400;
-    public static Boolean [][] visit=new Boolean[maxsize+1][maxsize+1];
+    public static Boolean [][] visit;
     public static ArrayList<String> Head;
+    private static Integer statusNum;
     public static TreeSet<Integer> [][] Form;
+    public static ArrayList<DFAStatus []> DFAFORM;
+    public Boolean used=false;
     //得到完整正则表达式的判断函数：
     public Boolean isleft(char s)
     {
@@ -40,6 +79,30 @@ public class RE {
             return true;
         }
         return false;
+    }
+    //确定可以引起状态转移的输入符号，这里定义字母和数字。
+    public Boolean isInput(char s)
+    {
+        if(s>='a'&&s<='z')
+            return true;
+        return  false;
+    }
+    public void initVisit()
+    {
+        if(visit==null) {
+            visit = new Boolean[Node.number + 2][Node.number + 2];
+            for (int i = 0; i <= Node.number; i++) {
+                for (int j = 0; j <= Node.number; j++) {
+                    visit[i][j] = false;
+                }
+            }
+        }
+        else {
+            for (int i = 0; i <= Node.number; i++) {
+                for (int j = 0; j <= Node.number; j++)
+                    visit[i][j] = false;
+            }
+        }
     }
     //得到包括"."的正则表达式：
     public String getRE(String s)
@@ -78,7 +141,7 @@ public class RE {
         Stack<String> stack=new Stack<String>();
         for(int i=0;i<s.length();i++)
         {
-            if(s.charAt(i)>='a'&&s.charAt(i)<='z')
+            if(isInput(s.charAt(i)))
             {
                 res.append(s.substring(i, i+1));
             }
@@ -135,7 +198,7 @@ public class RE {
         for(int i=0;i<s.length();i++)
         {
             //构造单个字母的状态转换图
-            if(s.charAt(i)>='a'&&s.charAt(i)<='z')
+            if(isInput(s.charAt(i)))
             {
                 Node a;
                 stackNode stacknode;
@@ -167,16 +230,16 @@ public class RE {
                     Line newline4=new Line();
                     //右边相连
                     newline3.next=newnode2;
-                    newline3.tranval="&".toString();
+                    newline3.tranval="ε".toString();
                     newline4.next=newnode2;
-                    newline4.tranval="&".toString();
+                    newline4.tranval="ε".toString();
                     node1.right.line.add(newline3);
                     node2.right.line.add(newline4);
                     //左边相连：
                     newline1.next=node1.left;
-                    newline1.tranval="&".toString();
+                    newline1.tranval="ε".toString();
                     newline2.next=node2.left;
-                    newline2.tranval="&".toString();
+                    newline2.tranval="ε".toString();
                     newnode1.line.add(newline1);
                     newnode1.line.add(newline2);
                     //创造新的压栈元素，并压栈。
@@ -200,7 +263,7 @@ public class RE {
                     }
                     /*Line newline=new Line();
                     newline.next=node2.left;
-                    newline.tranval="&".toString();
+                    newline.tranval="ε".toString();
                     node1.right.line.add(newline);*/
                     node1.right=node2.right;
                     stack.push(node1);
@@ -214,18 +277,18 @@ public class RE {
                     Line newline2=new Line();
                     Line newline3=new Line();
                     newline.next=node.left;
-                    newline.tranval="&".toString();
+                    newline.tranval="ε".toString();
                     node.right.line.add(newline);
                     Node newnode1=new Node();
                     Node newnode2=new Node();
                     newline1.next=node.left;
-                    newline1.tranval="&".toString();
+                    newline1.tranval="ε".toString();
                     newnode1.line.add(newline1);
                     newline2.next=newnode2;
-                    newline2.tranval="&".toString();
+                    newline2.tranval="ε".toString();
                     node.right.line.add(newline2);
                     newline3.next=newnode2;
-                    newline3.tranval="&".toString();
+                    newline3.tranval="ε".toString();
                     newnode1.line.add(newline3);
                     node.left=newnode1;
                     node.right=newnode2;
@@ -258,13 +321,7 @@ public class RE {
     //用来输出NFA，检查是否有错误的方法：
     public void Debag(Node head)
     {
-        for(int i=0;i<=Node.number;i++)
-        {
-            for(int j=0;j<=Node.number;j++)
-            {
-                visit[i][j]=false;
-            }
-        }
+        initVisit();
         dfs(head);
     }
     //确定输入包括的所有字符：
@@ -273,7 +330,7 @@ public class RE {
         Set<String> set=new HashSet<String>();
         for(int i=0;i<s.length();i++)
         {
-            if(s.charAt(i)>='a'&&s.charAt(i)<='z')
+            if(isInput(s.charAt(i)))
             {
                 set.add(s.substring(i,i+1));
             }
@@ -285,7 +342,7 @@ public class RE {
         {
             arr.add(it.next().toString());
         }
-        arr.add("&".toString());
+        arr.add("ε".toString());
         return arr;
     }
     //配合getNfaForm函数来进行NFA表格化输出的函数：
@@ -311,21 +368,16 @@ public class RE {
     public void getNfaForm(Node head,String s,Node bottom)
     {
         Head=getInputHead(s);
-        Form=new TreeSet[maxsize][Head.size()];
-        for(int i=0;i<maxsize;i++)
+        setStatusNum(bottom);
+        Form=new TreeSet[statusNum+2][Head.size()];
+        for(int i=0;i<=statusNum+1;i++)
         {
             for(int j=0;j<Head.size();j++)
             {
                 Form[i][j]=new TreeSet<Integer>();
             }
         }
-        for(int i=0;i<=Node.number;i++)
-        {
-            for(int j=0;j<=Node.number;j++)
-            {
-                visit[i][j]=false;
-            }
-        }
+        initVisit();
         deep(head);
         System.out.printf("%6s ","Status".toString());
         for(int i=0;i<Head.size();i++)
@@ -333,7 +385,7 @@ public class RE {
             System.out.printf("%20s ",Head.get(i));
         }
         System.out.println();
-        for(int i=0;i<=bottom.num;i++)
+        for(int i=0;i<=statusNum;i++)
         {
             System.out.printf("%6d ",i);
             for(int j=0;j<Head.size();j++)
@@ -353,6 +405,158 @@ public class RE {
                     sb.deleteCharAt(index);
                 sb.append("}".toString());
                 System.out.printf("%20s ",sb.toString());
+            }
+            System.out.println();
+        }
+    }
+    //设置状态数字。
+    public void setStatusNum(Node temp)
+    {
+        statusNum=temp.num;
+        return ;
+    }
+    //判断特定的输入可以转到的状态，包括空边合并后的结果：
+    public void Closure(Integer row,String tranval,TreeSet<Integer> temp)
+    {
+        Integer col=Head.indexOf(tranval);
+        TreeSet<Integer> par=Form[row][col];
+        Iterator it=par.iterator();
+        if(!used) {
+            while (it.hasNext()) {
+                Integer newnum = Integer.parseInt(it.next().toString());
+                if (!visit[row][newnum]) {
+                    visit[row][newnum] = true;
+                    used = true;
+                    temp.add(newnum);
+                    Closure(newnum, tranval, temp);
+                }
+            }
+            used=false;
+        }
+        col=Head.indexOf("ε".toString());
+        par=Form[row][col];
+        it =par.iterator();
+        while (it.hasNext())
+        {
+            Integer newnum=Integer.parseInt(it.next().toString());
+            if(!visit[row][newnum])
+            {
+                visit[row][newnum]=true;
+                temp.add(newnum);
+                Closure(newnum,tranval,temp);
+            }
+        }
+    }
+    //返回ε闭包
+    public void Closure(Integer row,TreeSet<Integer> temp)
+    {
+        Integer col=Head.indexOf("ε".toString());
+        TreeSet<Integer> par=Form[row][col];
+        Iterator it =par.iterator();
+        while (it.hasNext())
+        {
+            Integer newnum=Integer.parseInt(it.next().toString());
+            if(!visit[row][newnum])
+            {
+                visit[row][newnum]=true;
+                temp.add(newnum);
+                Closure(newnum,temp);
+            }
+        }
+    }
+    public void getClosure(Integer row,String tranval,TreeSet<Integer> temp)
+    {
+        initVisit();
+        Closure(row,tranval,temp);
+    }
+    public void getClosure(Integer row,TreeSet<Integer> temp)
+    {
+        initVisit();
+        Closure(row,temp);
+    }
+    public ArrayList<DFAStatus []> getDFA(Node head)
+    {
+        TreeSet<Integer> Start=new TreeSet<Integer>();
+        getClosure(head.num,Start);
+        DFAStatus start=new DFAStatus(Start);
+        start.initSymble();
+        DFAStatus [] row=new DFAStatus[Head.size()+1];
+        row[0]=start;
+        ArrayList<DFAStatus []> DFAform=new ArrayList<DFAStatus[]>();
+        DFAform.add(row);
+        for(int i=0;i<DFAform.size();i++)
+        {
+            for(int j=0;j<Head.size()-1;j++)
+            {
+                TreeSet<Integer> elem=new TreeSet<Integer>();
+                //找到当前状态开始。
+                Iterator it=DFAform.get(i)[0].closure.iterator();
+                while(it.hasNext())
+                {
+                    Integer newnum=Integer.parseInt(it.next().toString());
+                    getClosure(newnum,Head.get(j),elem);
+                }
+                if(elem.size()==0)
+                    DFAform.get(i)[j+1]=null;
+                else
+                {
+                    DFAStatus status=new DFAStatus(elem);
+                    Boolean flag=true;
+                    for(int k=0;k<DFAform.size();k++)
+                    {
+                        if(DFAform.get(k)[0].isEqual(status))
+                        {
+                            status.setSymble(DFAform.get(k)[0].symble);
+                            DFAform.get(i)[j+1]=status;
+                            flag=false;
+                            break;
+                        }
+                    }
+                    if(flag)
+                    {
+                        status.initSymble();
+                        DFAform.get(i)[j+1]=status;
+                        DFAStatus [] newrow=new DFAStatus[Head.size()+1];
+                        newrow[0]=status;
+                        DFAform.add(newrow);
+                    }
+                }
+            }
+        }
+        DFAFORM=DFAform;
+        return DFAform;
+    }
+    //输出集合表示的DFA（未化简状态的DFA）
+    public void PrintSetDFA()
+    {
+        for(int i=0;i<DFAFORM.size();i++)
+        {
+            for(int j=0;j<Head.size();j++)
+            {
+                Iterator it=DFAFORM.get(i)[j].closure.iterator();
+                StringBuffer sb=new StringBuffer();
+                sb.append("{".toString());
+                while(it.hasNext())
+                {
+                    sb.append(it.next().toString());
+                    sb.append(",");
+                }
+                Integer index=sb.lastIndexOf(",");
+                sb.deleteCharAt(index);
+                sb.append("}");
+                System.out.printf("%20s ",sb.toString());
+            }
+            System.out.println();
+        }
+    }
+    //输出状态化简后的DFA（将集合表示的状态改用某一个标号）
+    public void PrintSymbleDFA()
+    {
+        for(int i=0;i<DFAFORM.size();i++)
+        {
+            for(int j=0;j<Head.size();j++)
+            {
+                System.out.printf("%20d ",DFAFORM.get(i)[j].symble);
             }
             System.out.println();
         }

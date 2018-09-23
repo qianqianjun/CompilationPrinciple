@@ -1,5 +1,4 @@
-package main;
-import main.RE;
+package DFA;
 import java.util.*;
 import java.io.*;
 public class Main {
@@ -14,6 +13,10 @@ public class Main {
         Node head=node.left;
         Node bottom=node.right;
         re.getNfaForm(head,s,bottom);
+        System.out.println("DFA");
+        re.getDFA(head);
+        re.PrintSetDFA();
+        re.PrintSymbleDFA();
         cin.close();
     }
 }

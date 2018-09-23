@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FirstJet.iml" filepath="$PROJECT_DIR$/FirstJet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DFA.iml" filepath="$PROJECT_DIR$/DFA.iml" />
     </modules>
   </component>
 </project>

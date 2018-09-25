@@ -1,12 +1,7 @@
 package DFA;
-
-import java.io.*;
-import java.util.*;
-
+import DFA.RE;
 public class Test {
-    public static void main(String[] args)
-    {
-        Scanner cin=new Scanner(new BufferedInputStream(System.in));
-        cin.close();
+    public static void main(String[] args) {
+        Block block=new Block();
     }
 }

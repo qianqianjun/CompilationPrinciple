@@ -1,6 +1,7 @@
 package DFA;
 import java.util.*;
 import java.io.*;
+//ε
 public class Main {
     public static void main(String[] args)
     {
@@ -13,10 +14,12 @@ public class Main {
         Node head=node.left;
         Node bottom=node.right;
         re.getNfaForm(head,s,bottom);
-        System.out.println("DFA");
-        re.getDFA(head);
+        System.out.println("SetDFA");
+        re.getDFA(head,bottom);
         re.PrintSetDFA();
+        System.out.println("SymbleDFA");
         re.PrintSymbleDFA();
+        re.getMinDFA();
         cin.close();
     }
 }

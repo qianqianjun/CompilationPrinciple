@@ -1,5 +1,4 @@
 package DFA;
-
 import java.util.*;
 class Line{
     public String tranval;
@@ -23,9 +22,12 @@ class DFAStatus{
     public static Integer amount=0;
     public Integer symble;
     public TreeSet<Integer> closure;
+    public Boolean isAcceptable;
+    public static ArrayList<Integer> AcceptStatusNum=new ArrayList<Integer>();
     public DFAStatus(TreeSet<Integer> tree)
     {
         this.closure=tree;
+        this.isAcceptable=false;
     }
     //如果是一个没有的全新的状态，那么就创造一个新的状态标号。
     public void initSymble()
@@ -55,6 +57,77 @@ class DFAStatus{
         }
         return true;
     }
+    public Boolean judgeAcceptable(Integer end)
+    {
+        Iterator it=this.closure.iterator();
+        while(it.hasNext())
+        {
+            Integer temp=Integer.parseInt(it.next().toString());
+            if(temp==end)
+            {
+                this.isAcceptable=true;
+                //AcceptStatusNum=this.symble;
+                Integer tem=this.symble;
+                AcceptStatusNum.add(tem);
+                return true;
+            }
+        }
+        return false;
+    }
+}
+class SimpleDFA{
+    public Boolean isAccept;
+    public Integer symble;
+    public SimpleDFA(Integer s,ArrayList<Integer> arr)
+    {
+        if(arr.contains(s))
+            isAccept=true;
+        else
+            isAccept=false;
+        symble=s;
+    }
+}
+class Block{
+    public static Integer number=0;
+    public Integer num;
+    public ArrayList<SimpleDFA []> statusSet;
+    public Boolean isHave(Integer temp)
+    {
+        for(int i=0;i<statusSet.size();i++)
+        {
+            if(statusSet.get(i)[0].symble==temp)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void addStatus(SimpleDFA [] temp)
+    {
+        this.statusSet.add(temp);
+    }
+    public void deleteStatus(Integer index)
+    {
+        this.statusSet.remove(index);
+    }
+    public Block()
+    {
+        num=number++;
+        statusSet=new ArrayList<SimpleDFA []>();
+    }
+    //输出这个区的所有状态：调试用：
+    public void PrintBlock(Integer HEADSIZE)
+    {
+        for(int i=0;i<this.statusSet.size();i++)
+        {
+            for(int j=0;j<HEADSIZE;j++)
+            {
+                System.out.printf("%4d ",statusSet.get(i)[j].symble);
+            }
+            System.out.println();
+        }
+        System.out.println("-----------------------------------");
+    }
 }
 public class RE {
     public static Boolean [][] visit;
@@ -62,6 +135,8 @@ public class RE {
     private static Integer statusNum;
     public static TreeSet<Integer> [][] Form;
     public static ArrayList<DFAStatus []> DFAFORM;
+    //获得的状态集合简化后的DFA,其实和DFAFORM 没有什么不同，只是结构上做了一些调整和优化。
+    public static SimpleDFA [][] simpleDFA;
     public Boolean used=false;
     //得到完整正则表达式的判断函数：
     public Boolean isleft(char s)
@@ -474,10 +549,24 @@ public class RE {
         initVisit();
         Closure(row,temp);
     }
-    public ArrayList<DFAStatus []> getDFA(Node head)
+    public void getSimpleDfaArray()
     {
+        simpleDFA=new SimpleDFA[DFAFORM.size()][Head.size()];
+        for(int i=0;i<DFAFORM.size();i++)
+        {
+            for(int j=0;j<Head.size();j++)
+            {
+                SimpleDFA temp=new SimpleDFA(DFAFORM.get(i)[j].symble,DFAStatus.AcceptStatusNum);
+                simpleDFA[i][j]=temp;
+            }
+        }
+    }
+    public ArrayList<DFAStatus []> getDFA(Node head,Node bottom)
+    {
+        //首先，找到起始状态的ε闭包，作为一个新的起点。
         TreeSet<Integer> Start=new TreeSet<Integer>();
         getClosure(head.num,Start);
+        Start.add(head.num);
         DFAStatus start=new DFAStatus(Start);
         start.initSymble();
         DFAStatus [] row=new DFAStatus[Head.size()+1];
@@ -496,8 +585,12 @@ public class RE {
                     Integer newnum=Integer.parseInt(it.next().toString());
                     getClosure(newnum,Head.get(j),elem);
                 }
-                if(elem.size()==0)
-                    DFAform.get(i)[j+1]=null;
+                if(elem.size()==0) {
+                    TreeSet<Integer> Null=new TreeSet<Integer>();
+                    DFAStatus NULL=new DFAStatus(Null);
+                    NULL.setSymble(-1);
+                    DFAform.get(i)[j + 1]=NULL;
+                }
                 else
                 {
                     DFAStatus status=new DFAStatus(elem);
@@ -523,7 +616,13 @@ public class RE {
                 }
             }
         }
+        for(int i=0;i<DFAform.size();i++)
+        {
+            DFAform.get(i)[0].judgeAcceptable(bottom.num);
+        }
         DFAFORM=DFAform;
+        getSimpleDfaArray();
+        getSimpleDfaArray();
         return DFAform;
     }
     //输出集合表示的DFA（未化简状态的DFA）
@@ -542,7 +641,8 @@ public class RE {
                     sb.append(",");
                 }
                 Integer index=sb.lastIndexOf(",");
-                sb.deleteCharAt(index);
+                if(index!=-1)
+                    sb.deleteCharAt(index);
                 sb.append("}");
                 System.out.printf("%20s ",sb.toString());
             }
@@ -556,9 +656,38 @@ public class RE {
         {
             for(int j=0;j<Head.size();j++)
             {
-                System.out.printf("%20d ",DFAFORM.get(i)[j].symble);
+                if(DFAStatus.AcceptStatusNum.contains(DFAFORM.get(i)[j].symble))
+                    System.out.printf("%20d*",DFAFORM.get(i)[j].symble);
+                else
+                    System.out.printf("%20d ",DFAFORM.get(i)[j].symble);
             }
             System.out.println();
+        }
+    }
+    public void getMinDFA() {
+        //将原始的集合划分为可接受集合和不可接受集合：
+        Block block1=new Block();
+        Block block2=new Block();
+        for(int i=0;i<DFAFORM.size();i++) {
+            if (simpleDFA[i][0].isAccept) {
+                block2.addStatus(simpleDFA[i]);
+            }
+            else {
+                block1.addStatus(simpleDFA[i]);
+            }
+        }
+        //初始化列表，只有两个区，可接受区和不可接受区域。
+        ArrayList<Block> BlockSet=new ArrayList<Block>();
+        BlockSet.add(block1);
+        BlockSet.add(block2);
+        //开始进行化简
+        for(int i=0;i<BlockSet.size();i++)
+        {
+            Integer index=0;
+            for(int j=0;i<BlockSet.get(i).statusSet.size();j++)
+            {
+                
+            }
         }
     }
 }

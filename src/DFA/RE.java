@@ -86,11 +86,27 @@ class SimpleDFA{
             isAccept=false;
         symble=s;
     }
+    //获得当前状态在哪一个区域中。
+    public Integer getBlocknum(ArrayList<Block> blocks)
+    {
+        for(int i=0;i<blocks.size();i++)
+        {
+            for(int j=0;j<blocks.get(i).statusSet.size();j++)
+            {
+                if(symble==blocks.get(i).statusSet.get(j)[0].symble)
+                {
+                    return blocks.get(i).num;
+                }
+            }
+        }
+        return -1;
+    }
 }
 class Block{
     public static Integer number=0;
     public Integer num;
     public ArrayList<SimpleDFA []> statusSet;
+    //检查这一个区中是否含有要查找的状态
     public Boolean isHave(Integer temp)
     {
         for(int i=0;i<statusSet.size();i++)
@@ -116,11 +132,11 @@ class Block{
         statusSet=new ArrayList<SimpleDFA []>();
     }
     //输出这个区的所有状态：调试用：
-    public void PrintBlock(Integer HEADSIZE)
+    public void PrintBlock()
     {
         for(int i=0;i<this.statusSet.size();i++)
         {
-            for(int j=0;j<HEADSIZE;j++)
+            for(int j=0;j<this.statusSet.get(i).length;j++)
             {
                 System.out.printf("%4d ",statusSet.get(i)[j].symble);
             }
@@ -664,7 +680,14 @@ public class RE {
             System.out.println();
         }
     }
-    public void getMinDFA() {
+    public void PrintBlock(ArrayList<Block> Blocks)
+    {
+        for(int i=0;i<Blocks.size();i++)
+        {
+            Blocks.get(i).PrintBlock();
+        }
+    }
+    public ArrayList<Block> getMinDFA() {
         //将原始的集合划分为可接受集合和不可接受集合：
         Block block1=new Block();
         Block block2=new Block();
@@ -680,14 +703,66 @@ public class RE {
         ArrayList<Block> BlockSet=new ArrayList<Block>();
         BlockSet.add(block1);
         BlockSet.add(block2);
-        //开始进行化简
-        for(int i=0;i<BlockSet.size();i++)
+        int i=0;
+        while(i<BlockSet.size())
         {
-            Integer index=0;
-            for(int j=0;i<BlockSet.get(i).statusSet.size();j++)
+            if(BlockSet.get(i).statusSet.size()==1)
             {
-                
+                i++;
+                continue;
+            }
+            else
+            {
+                Integer index=1;
+                StringBuffer sb=new StringBuffer();
+                SimpleDFA [] begin=BlockSet.get(i).statusSet.get(0);
+                for(int j=1;j<begin.length;j++)
+                {
+                    sb.append(begin[j].getBlocknum(BlockSet).toString());
+                }
+                for(int j=1;j<BlockSet.get(i).statusSet.size();j++)
+                {
+                    SimpleDFA [] row= BlockSet.get(i).statusSet.get(j);
+                    StringBuffer sb2=new StringBuffer();
+                    for(int k=1;k<row.length;k++)
+                    {
+                        sb2.append(row[k].getBlocknum(BlockSet).toString());
+                    }
+                    if(sb.toString().equals(sb2.toString()))
+                    {
+                        index++;
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if(index==BlockSet.get(i).statusSet.size())
+                {
+                    i++;
+                }
+                else
+                {
+                    Block newblock=new Block();
+                    for(int m=0;m<index;m++)
+                    {
+                        newblock.addStatus(BlockSet.get(i).statusSet.get(m));
+                        BlockSet.get(i).deleteStatus(m);
+                    }
+                    ArrayList<SimpleDFA []> newstatusset=new ArrayList<SimpleDFA []>();
+                    for(int m=index;m<BlockSet.get(i).statusSet.size();m++)
+                    {
+                        newstatusset.add(BlockSet.get(i).statusSet.get(m));
+                    }
+                    BlockSet.get(i).statusSet=newstatusset;
+                    BlockSet.add(newblock);
+                    i=0;
+                }
             }
         }
+        PrintBlock(BlockSet);
+        return BlockSet;
     }
+
 }

@@ -1,8 +1,12 @@
 package DFA;
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
 import java.util.*;
 import java.io.*;
 //ε
 public class Main {
+
     public static void main(String[] args)
     {
         RE re=new RE();
@@ -19,6 +23,8 @@ public class Main {
         re.PrintSetDFA();
         System.out.println("SymbleDFA");
         re.PrintSymbleDFA();
+        //最小化DFA
+        System.out.println("最小化DFA是：");
         re.getMinDFA();
         cin.close();
     }

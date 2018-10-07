@@ -1,9 +1,11 @@
 package DFA;
 import java.util.*;
+//NFA的边类：
 class Line{
     public String tranval;
     public Node next;
 }
+//NFA 节点类
 class Node{
     public Integer num;
     public ArrayList<Line> line;
@@ -14,10 +16,12 @@ class Node{
         this.line=new ArrayList<Line>();
     }
 }
+//每一个子表达式DFA的栈类：
 class stackNode{
     public Node left=null;
     public Node right=null;
 }
+//DFA的集合类：
 class DFAStatus{
     public static Integer amount=0;
     public Integer symble;
@@ -75,6 +79,7 @@ class DFAStatus{
         return false;
     }
 }
+//DFA类：
 class SimpleDFA{
     public Boolean isAccept;
     public Integer symble;
@@ -102,6 +107,7 @@ class SimpleDFA{
         return -1;
     }
 }
+//最后化简的区块类：
 class Block{
     public static Integer number=0;
     public Integer num;
@@ -131,6 +137,14 @@ class Block{
         num=number++;
         statusSet=new ArrayList<SimpleDFA []>();
     }
+    public void setNum()
+    {
+        num++;
+    }
+    public void setNum(Integer tempnum)
+    {
+        num=tempnum;
+    }
     //输出这个区的所有状态：调试用：
     public void PrintBlock()
     {
@@ -145,10 +159,11 @@ class Block{
         System.out.println("-----------------------------------");
     }
 }
+//正则表达式类
 public class RE {
     public static Boolean [][] visit;
     public static ArrayList<String> Head;
-    private static Integer statusNum;
+    public static Integer statusNum;
     public static TreeSet<Integer> [][] Form;
     public static ArrayList<DFAStatus []> DFAFORM;
     //获得的状态集合简化后的DFA,其实和DFAFORM 没有什么不同，只是结构上做了一些调整和优化。
@@ -157,7 +172,7 @@ public class RE {
     //得到完整正则表达式的判断函数：
     public Boolean isleft(char s)
     {
-        if(s==')'||s>='a'&&s<='z'||s=='*')
+        if(s==')'||s>='a'&&s<='z'||s=='*'||s>='A'&&s<='Z'||s=='_'||s>='0'&&s<='9')
         {
             return true;
         }
@@ -165,35 +180,35 @@ public class RE {
     }
     public Boolean isright(char s)
     {
-        if(s>='a'&&s<='z'||s=='(')
+        if(s>='a'&&s<='z'||s=='('||s=='_'||s>='A'&&s<='Z'||s>='0'&&s<='9')
         {
             return true;
         }
         return false;
     }
-    //确定可以引起状态转移的输入符号，这里定义字母和数字。
+    //确定可以引起状态转移的输入符号，这里定义字母,数字,下滑线。
     public Boolean isInput(char s)
     {
-        if(s>='a'&&s<='z')
+        if(s>='a'&&s<='z'||s>='A'&&s<='Z'||s>='0'&&s<='9'||s=='_')
             return true;
         return  false;
     }
     public void initVisit()
     {
-        if(visit==null) {
+       // if(visit==null) {
             visit = new Boolean[Node.number + 2][Node.number + 2];
             for (int i = 0; i <= Node.number; i++) {
                 for (int j = 0; j <= Node.number; j++) {
                     visit[i][j] = false;
                 }
             }
-        }
-        else {
-            for (int i = 0; i <= Node.number; i++) {
-                for (int j = 0; j <= Node.number; j++)
-                    visit[i][j] = false;
-            }
-        }
+        //}
+//        else {
+//            for (int i = 0; i <= Node.number; i++) {
+//                for (int j = 0; j <= Node.number; j++)
+//                    visit[i][j] = false;
+//            }
+//        }
     }
     //得到包括"."的正则表达式：
     public String getRE(String s)
@@ -210,6 +225,8 @@ public class RE {
             else
                 res.append(s.substring(i,i+1));
         }
+//        System.out.println("得到的完整的表达式是：");
+//        System.out.println(res.toString());
         return res.toString();
     }
     //求后缀表达式的比较函数：
@@ -703,64 +720,75 @@ public class RE {
         ArrayList<Block> BlockSet=new ArrayList<Block>();
         BlockSet.add(block1);
         BlockSet.add(block2);
+        System.out.println("划分为终态和非终态：");
+        PrintBlock(BlockSet);
+        System.out.println("每一次的划分信息如下：");
         int i=0;
+        //遍历这些区块：
         while(i<BlockSet.size())
         {
+            //如果当前区块只有一个状态：直接看下一个区块：
             if(BlockSet.get(i).statusSet.size()==1)
             {
                 i++;
                 continue;
             }
-            else
-            {
-                Integer index=1;
-                StringBuffer sb=new StringBuffer();
-                SimpleDFA [] begin=BlockSet.get(i).statusSet.get(0);
-                for(int j=1;j<begin.length;j++)
-                {
+            //如果区块中有多个状态，寻找等价状态：
+            else {
+                Integer index = 1;
+                StringBuffer sb = new StringBuffer();
+                SimpleDFA[] begin = BlockSet.get(i).statusSet.get(0);
+                //将每一个状态通过输入符号转换后的状态所在的块号存入一个字符串中：
+                for (int j = 1; j < begin.length; j++) {
                     sb.append(begin[j].getBlocknum(BlockSet).toString());
                 }
-                for(int j=1;j<BlockSet.get(i).statusSet.size();j++)
-                {
-                    SimpleDFA [] row= BlockSet.get(i).statusSet.get(j);
-                    StringBuffer sb2=new StringBuffer();
-                    for(int k=1;k<row.length;k++)
-                    {
+                //将这个字符串与剩下的状态生成的字符串进行比较：如果相同的话说明两个状态暂时还是一个等价的状态
+                //如果不同的话需要将这一个区块划分为两个区块，划分的位置就是当前位置。
+                for (int j = 1; j < BlockSet.get(i).statusSet.size(); j++) {
+                    SimpleDFA[] row = BlockSet.get(i).statusSet.get(j);
+                    StringBuffer sb2 = new StringBuffer();
+                    for (int k = 1; k < row.length; k++) {
                         sb2.append(row[k].getBlocknum(BlockSet).toString());
                     }
-                    if(sb.toString().equals(sb2.toString()))
-                    {
+                    //如果相同，就直接继续查找不同的状态出现的地方。
+                    if (sb.toString().equals(sb2.toString())) {
                         index++;
                         continue;
                     }
-                    else
-                    {
+                    //如果不同，找到了划分的位置，就可以进行划分了：
+                    else {
                         break;
                     }
                 }
-                if(index==BlockSet.get(i).statusSet.size())
-                {
+                //这个说明当前块内的所有状态都是等价状态，不需要划分：
+                if (index == BlockSet.get(i).statusSet.size()) {
                     i++;
                 }
-                else
-                {
-                    Block newblock=new Block();
-                    for(int m=0;m<index;m++)
-                    {
+                //如果需要划分的话：
+                else {
+                    Block newblock = new Block();
+                    for (int m = 0; m < index; m++) {
                         newblock.addStatus(BlockSet.get(i).statusSet.get(m));
                         BlockSet.get(i).deleteStatus(m);
                     }
-                    ArrayList<SimpleDFA []> newstatusset=new ArrayList<SimpleDFA []>();
-                    for(int m=index;m<BlockSet.get(i).statusSet.size();m++)
-                    {
+                    newblock.setNum(i);
+                    //BlockSet.add(i, newblock);
+                    ArrayList<SimpleDFA[]> newstatusset = new ArrayList<SimpleDFA[]>();
+                    for (int m = index; m < BlockSet.get(i).statusSet.size(); m++) {
                         newstatusset.add(BlockSet.get(i).statusSet.get(m));
                     }
-                    BlockSet.get(i).statusSet=newstatusset;
-                    BlockSet.add(newblock);
-                    i=0;
+                    BlockSet.get(i).statusSet = newstatusset;
+                    for (int q = i; q < BlockSet.size(); q++) {
+                        BlockSet.get(q).setNum();
+                    }
+                    BlockSet.add(i,newblock);
+                    i = 0;
                 }
             }
+            System.out.println("********************************");
+            PrintBlock(BlockSet);
         }
+        System.out.println("最终划分的结果是：");
         PrintBlock(BlockSet);
         return BlockSet;
     }

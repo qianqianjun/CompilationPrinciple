@@ -20,20 +20,25 @@ public class Test {
         scrollPane.setSize(new Dimension(width, height));
         return scrollPane;
     }
-    public static void main(String[] args)
+    public static JPanel panel=new JPanel();
+    public static JFrame frame;
+    public static void startup()
     {
-        JFrame frame=new JFrame("测试");
+        frame=new JFrame("正则表达式到DFA，write by 高谦");
         frame.setBounds(100,100,1000,900);
         frame.setLayout(null);
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public static void drowPanel()
+    {
+        panel.setLayout(null);
+        panel.setBounds(0,0,1000,900);
         JTextField textField=new JTextField();
         textField.setColumns(100);
         textField.setBounds(10,10,750,40);
         textField.setFont(new Font("宋体", Font.PLAIN, 20));
-        JPanel panel=new JPanel();
-        panel.setLayout(null);
-        panel.setBounds(0,0,1000,900);
         panel.add(textField);
-        frame.add(panel);
         JPanel jspanel=new JPanel();
         jspanel.setBounds(10,60,900,850);
         panel.add(jspanel);
@@ -83,14 +88,26 @@ public class Test {
                     }
                 }
                 JScrollPane js=GetProcessTable(arr,title,900,800);
-                panel.remove(jspanel);
+                panel.removeAll();
                 JPanel jspanel=new JPanel();
                 jspanel.setBounds(10,60,900,850);
-                panel.add(jspanel);
                 jspanel.add(js);
+                panel.add(jspanel);
+                drowPanel();
+                panel.repaint();
+                //将每一个类的静态成员变量恢复到零：
+                Node.number=0;
+                DFAStatus.amount=0;
+                DFAStatus.AcceptStatusNum.clear();
+                Block.number=0;
+                RE.statusNum=0;
             }
         });
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public static void main(String[] args)
+    {
+        startup();
+        drowPanel();
     }
 }

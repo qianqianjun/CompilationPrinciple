@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="875912da-6fae-45f9-ae32-6f5c301ad81e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Study.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DFA/RE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DFA/RE.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DFA/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DFA/Test.java" afterDir="false" />
@@ -13,6 +13,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -32,45 +35,49 @@
     <session id="-523891305">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
-          <entry key="project.open.time.0" value="2" />
+          <entry key="project.closed" value="19" />
+          <entry key="project.open.time.0" value="3" />
+          <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.159" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.37" value="1" />
           <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.42" value="1" />
           <entry key="project.open.time.47" value="1" />
-          <entry key="project.open.time.51" value="1" />
+          <entry key="project.open.time.51" value="2" />
+          <entry key="project.open.time.54" value="1" />
           <entry key="project.open.time.56" value="1" />
           <entry key="project.open.time.74" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="2" />
           <entry key="iml" value="1" />
-          <entry key="java" value="23" />
+          <entry key="java" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="2" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="23" />
+          <entry key="JAVA" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="6" />
-          <entry key="java" value="32272" />
+          <entry key="java" value="32342" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="32272" />
+          <entry key="JAVA" value="32342" />
           <entry key="PLAIN_TEXT" value="6" />
         </counts>
       </usages-collector>
@@ -80,7 +87,55 @@
     <favorites_list name="FirstJet" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DFA/Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="75" column="34" lean-forward="true" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DFA/RE.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1377">
+              <caret line="722" column="29" lean-forward="true" selection-start-line="722" selection-start-column="29" selection-end-line="722" selection-end-column="29" />
+              <folding>
+                <element signature="class#DFAStatus#0" />
+                <element signature="method#isEqual#0;class#DFAStatus#0" />
+                <element signature="method#judgeAcceptable#0;class#DFAStatus#0" />
+                <element signature="class#SimpleDFA#0" />
+                <element signature="method#SimpleDFA#0;class#SimpleDFA#0" />
+                <element signature="e#3122#3123#0" expanded="true" />
+                <element signature="e#3162#3163#0" expanded="true" />
+                <element signature="e#3212#3213#0" expanded="true" />
+                <element signature="e#3256#3257#0" expanded="true" />
+                <element signature="e#3389#3390#0" expanded="true" />
+                <element signature="e#3410#3411#0" expanded="true" />
+                <element signature="method#initVisit#0;class#RE#0" />
+                <element signature="method#dfs#0;class#RE#0" />
+                <element signature="method#Debag#0;class#RE#0" />
+                <element signature="method#deep#0;class#RE#0" />
+                <element signature="method#getNfaForm#0;class#RE#0" />
+                <element signature="method#setStatusNum#0;class#RE#0" />
+                <element signature="method#Closure#1;class#RE#0" />
+                <element signature="method#getClosure#1;class#RE#0" />
+                <element signature="method#getSimpleDfaArray#0;class#RE#0" />
+                <element signature="method#getDFA#0;class#RE#0" />
+                <element signature="method#PrintSetDFA#0;class#RE#0" />
+                <element signature="method#PrintSymbleDFA#0;class#RE#0" />
+                <element signature="method#PrintBlock#0;class#RE#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -108,8 +163,8 @@
         <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/DFA/Gui.java" />
         <option value="$PROJECT_DIR$/src/DFA/Main.java" />
-        <option value="$PROJECT_DIR$/src/DFA/Test.java" />
         <option value="$PROJECT_DIR$/src/Study.java" />
+        <option value="$PROJECT_DIR$/src/DFA/Test.java" />
         <option value="$PROJECT_DIR$/src/DFA/RE.java" />
       </list>
     </option>
@@ -126,7 +181,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-90" />
     <option name="width" value="1030" />
     <option name="height" value="1040" />
@@ -137,6 +192,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,11 +205,23 @@
               <item name="FirstJet" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="FirstJet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FirstJet" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DFA" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FirstJet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FirstJet" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DFA" type="462c0819:PsiDirectoryNode" />
+              <item name="RE.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -161,14 +229,14 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538901296914" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539872472145" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -268,11 +336,18 @@
       <workItem from="1538299106573" duration="7228000" />
       <workItem from="1538373645551" duration="195000" />
       <workItem from="1538874962502" duration="12613000" />
+      <workItem from="1538971488015" duration="5332000" />
+      <workItem from="1539651163480" duration="599000" />
+      <workItem from="1539822766615" duration="672000" />
+      <workItem from="1539823476725" duration="186000" />
+      <workItem from="1539870672016" duration="714000" />
+      <workItem from="1539959574332" duration="230000" />
+      <workItem from="1539999793032" duration="948000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124916000" />
+    <option name="totallyTimeSpent" value="133597000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -282,9 +357,42 @@
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Favorites" order="4" sideWeight="0.50141644" side_tool="true" weight="0.1816354" />
-      <window_info content_ui="combo" id="Project" order="5" weight="0.14544237" />
+      <window_info content_ui="combo" id="Project" order="5" weight="0.16353887" />
       <window_info id="Structure" order="6" sideWeight="0.50141644" side_tool="true" weight="0.1816354" />
-      <window_info id="Run" order="7" sideWeight="0.49858356" weight="0.43699732" />
+      <window_info active="true" id="Run" order="7" sideWeight="0.49858356" visible="true" weight="0.43163538" />
+      <window_info id="JRebel" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="0" weight="0.32907802" />
+      <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="2" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="bottom" id="Find" order="5" />
+      <window_info anchor="bottom" id="Debug" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.50141644" weight="0.18130311" />
+      <window_info anchor="bottom" id="JRebel Console" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="JRebel Executor" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Database" order="5" weight="0.3297587" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" weight="0.3297587" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Image Layers" order="0" />
+      <window_info id="Designer" order="1" />
+      <window_info id="UI Designer" order="2" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="Favorites" order="4" sideWeight="0.50141644" side_tool="true" weight="0.1816354" />
+      <window_info content_ui="combo" id="Project" order="5" weight="0.06568365" />
+      <window_info id="Structure" order="6" sideWeight="0.50141644" side_tool="true" weight="0.1816354" />
+      <window_info active="true" id="Run" order="7" sideWeight="0.49858356" visible="true" weight="0.21782842" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32907802" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="2" show_stripe_button="false" />
@@ -305,7 +413,7 @@
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Maven Projects" order="8" weight="0.3297587" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -338,27 +446,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Study.java" />
+    <entry file="file://$PROJECT_DIR$/src/DFA/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="75" column="34" lean-forward="true" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Study.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DFA/RE.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1465">
-          <caret line="780" column="34" selection-start-line="780" selection-start-column="34" selection-end-line="780" selection-end-column="34" />
+        <state relative-caret-position="-1377">
+          <caret line="722" column="29" lean-forward="true" selection-start-line="722" selection-start-column="29" selection-end-line="722" selection-end-column="29" />
           <folding>
-            <element signature="class#Line#0" />
-            <element signature="class#Node#0" />
-            <element signature="class#stackNode#0" />
             <element signature="class#DFAStatus#0" />
             <element signature="method#isEqual#0;class#DFAStatus#0" />
             <element signature="method#judgeAcceptable#0;class#DFAStatus#0" />
@@ -369,40 +475,20 @@
             <element signature="e#3212#3213#0" expanded="true" />
             <element signature="e#3256#3257#0" expanded="true" />
             <element signature="e#3389#3390#0" expanded="true" />
-            <element signature="e#3409#3410#0" expanded="true" />
-            <element signature="e#3407#3408#0" expanded="true" />
-            <element signature="e#3434#3435#0" expanded="true" />
+            <element signature="e#3410#3411#0" expanded="true" />
             <element signature="method#initVisit#0;class#RE#0" />
-            <element signature="method#getRE#0;class#RE#0" />
-            <element signature="method#adv#0;class#RE#0" />
-            <element signature="method#getPostfix#0;class#RE#0" />
-            <element signature="method#getNFA#0;class#RE#0" />
-            <element signature="e#7919#7930#0" expanded="true" />
             <element signature="method#dfs#0;class#RE#0" />
             <element signature="method#Debag#0;class#RE#0" />
             <element signature="method#deep#0;class#RE#0" />
             <element signature="method#getNfaForm#0;class#RE#0" />
             <element signature="method#setStatusNum#0;class#RE#0" />
-            <element signature="method#Closure#0;class#RE#0" />
             <element signature="method#Closure#1;class#RE#0" />
-            <element signature="method#getClosure#0;class#RE#0" />
             <element signature="method#getClosure#1;class#RE#0" />
             <element signature="method#getSimpleDfaArray#0;class#RE#0" />
             <element signature="method#getDFA#0;class#RE#0" />
             <element signature="method#PrintSetDFA#0;class#RE#0" />
             <element signature="method#PrintSymbleDFA#0;class#RE#0" />
             <element signature="method#PrintBlock#0;class#RE#0" />
-            <element signature="e#22052#22059#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DFA/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1809">
-          <caret line="67" selection-start-line="67" selection-end-line="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

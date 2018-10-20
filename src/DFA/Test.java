@@ -1,5 +1,4 @@
 package DFA;
-import DFA.RE;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
@@ -54,6 +53,8 @@ public class Test {
                 RE re=new RE();
                 String temp=re.getRE(s);
                 String postfix=re.getPostfix(temp);
+                System.out.println("后缀表达式是：");
+                System.out.println(postfix);
                 stackNode node=re.getNFA(postfix);
                 Node head=node.left;
                 Node bottom=node.right;

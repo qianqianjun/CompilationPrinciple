@@ -718,7 +718,8 @@ public class RE {
         }
         //初始化列表，只有两个区，可接受区和不可接受区域。
         ArrayList<Block> BlockSet=new ArrayList<Block>();
-        BlockSet.add(block1);
+        if(block1.statusSet.size()!=0)
+            BlockSet.add(block1);
         BlockSet.add(block2);
         System.out.println("划分为终态和非终态：");
         PrintBlock(BlockSet);

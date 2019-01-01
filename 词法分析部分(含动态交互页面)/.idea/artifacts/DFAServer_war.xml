@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="DFAServer:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/DFAServer_war</output-path>
+    <root id="archive" name="DFAServer_war.war">
+      <element id="artifact" artifact-name="DFAServer:war exploded" />
+      <element id="dir-copy" path="$PROJECT_DIR$/web" />
+    </root>
+  </artifact>
+</component>

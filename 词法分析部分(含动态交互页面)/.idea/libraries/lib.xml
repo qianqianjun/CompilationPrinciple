@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://D:/tomcat/lib" />
+      <root url="jar://$PROJECT_DIR$/libs/fastjson-1.2.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <excluded>
+      <root url="jar://$PROJECT_DIR$/libs/fastjson-1.2.9.jar!/" />
+    </excluded>
+    <jarDirectory url="file://D:/tomcat/lib" recursive="false" />
+  </library>
+</component>

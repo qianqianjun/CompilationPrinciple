@@ -1,0 +1,96 @@
+g.type-end > rect {
+    fill: #00ffd0;
+}
+g.type-active > rect {
+    fill: #ff992c;
+}
+g.type-begin > rect {
+    fill: #2c54ff;
+}
+text {
+    font-weight: 300;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+    font-size: 14px;
+}
+
+.node rect {
+    stroke: #999;
+    fill: #fff;
+    stroke-width: 1.5px;
+}
+
+.edgePath path {
+    stroke: #333;
+    stroke-width: 1.5px;
+}
+
+.DFA{
+  width: 40%;
+  height: 517px;
+  overflow: scroll;
+  display: inline-block;
+  background-color: #b4b0f48c;
+  padding: 10px;
+}
+.NFA{
+  width: 40%;
+  height: 517px;
+  overflow:scroll;
+  background-color:#c4ecf875;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+}
+.title{
+  width: 40%;
+  height: 40px;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+  display: inline-block;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.value {
+    border-radius: 5px;
+    border: 2px solid #8AC007;
+    padding: 10px; 
+    width: 300px;
+    font-size: 20px;
+}
+.svg{
+  width: 100%;
+  height: 100%;
+}
+.word{
+    padding: 5px 10px;
+    font-size: 20px;
+    border: 1px solid #ff992c;
+    border-radius: 3px;
+    color: #ff992c;
+    margin-right: 2px;
+}
+.active{
+    background-color: #ff992c;
+    color: white;
+}
+.set{
+    padding: 10px;
+    height: 40px;
+}

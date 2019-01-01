@@ -25,7 +25,7 @@
 
 ## 运行截图
 
-  ![]( https://github.com/qianqianjun/Homework/raw/master/web/images/run.png)
+  ![]( https://github.com/qianqianjun/CompilationPrinciple/raw/master/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E9%83%A8%E5%88%86(%E5%90%AB%E5%8A%A8%E6%80%81%E4%BA%A4%E4%BA%92%E9%A1%B5%E9%9D%A2)/web/images/run.png)
 
 ## 使用方法
 
